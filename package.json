@@ -1,0 +1,21 @@
+{
+  "name": "project-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Project Management System with MERN stack and Claude AI integration",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "lint": "npm run lint -w server && npm run lint -w client",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm test -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3"
+  }
+}

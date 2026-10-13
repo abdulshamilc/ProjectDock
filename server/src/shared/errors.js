@@ -1,0 +1,45 @@
+/**
+ * Domain error hierarchy.
+ * Services throw these; the central error handler maps them to HTTP responses.
+ * No HTTP concepts leak into domain/service code.
+ */
+
+export class AppError extends Error {
+  constructor(message, status, code) {
+    super(message);
+    this.name = this.constructor.name;
+    this.status = status;
+    this.code = code;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+export class NotFoundError extends AppError {
+  constructor(message = 'Resource not found') {
+    super(message, 404, 'NOT_FOUND');
+  }
+}
+
+export class ValidationError extends AppError {
+  constructor(message = 'Validation failed') {
+    super(message, 400, 'VALIDATION_ERROR');
+  }
+}
+
+export class ConflictError extends AppError {
+  constructor(message = 'Resource already exists') {
+    super(message, 409, 'CONFLICT');
+  }
+}
+
+export class ForbiddenError extends AppError {
+  constructor(message = 'Access denied') {
+    super(message, 403, 'FORBIDDEN');
+  }
+}
+
+export class UnauthorizedError extends AppError {
+  constructor(message = 'Authentication required') {
+    super(message, 401, 'UNAUTHORIZED');
+  }
+}
